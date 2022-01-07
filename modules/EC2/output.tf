@@ -1,5 +1,5 @@
 output "ec2_instance" {
-  value = aws_instance.wordpress.*.id
+  value = aws_instance.wordpress.id
 }
 
 
@@ -8,7 +8,6 @@ output "wordpress_sg" {
 }
 
 
-output "public_dns" {
-  value = aws_instance.wordpress.*.public_dns
-  
-}
+#output "public_dns" {
+#  value = aws_instance.wordpress.public_dns
+#}

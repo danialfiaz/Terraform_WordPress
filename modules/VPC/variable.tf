@@ -3,23 +3,16 @@ variable "cidr_vpc_block" {
   description = "vpc cidr block"
 }
 
-#variable "vpc_id" {
-#   type = string
-#  description =" vpc id"  
-#}
-
 variable "public" {
-  type        = list(any)
+  type        = list(string)
   description = ""
 }
-
 
 variable "private" {
-  type        = list(any)
+  type        = list(string)
   description = ""
 }
 
-
 variable "availability_zone" {
-
+  type = list(string) 
 }

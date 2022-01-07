@@ -1,11 +1,11 @@
 resource "aws_db_instance" "mysql" {
-  identifier             = var.identifier
+  identifier             = "${var.identifier}-${terraform.workspace}"
   allocated_storage      = var.allocated_storage
   storage_type           = var.storage_type
   engine                 = var.engine
   engine_version         = var.engine_version
   instance_class         = var.instance_class
-  name                   = var.name 
+  name                   = var.name
   username               = var.username
   password               = var.password
   db_subnet_group_name   = aws_db_subnet_group.subnet_group.name
@@ -13,34 +13,33 @@ resource "aws_db_instance" "mysql" {
   parameter_group_name   = var.parameter_group_name
   skip_final_snapshot    = true
   tags = {
-    "Name" = "RDS_instance"
+    Name = "${terraform.workspace}-RDS_instance"
   }
 }
 
 resource "aws_db_subnet_group" "subnet_group" {
-    name       = "subnet_db"
-    subnet_ids = [var.public[0], var.public[1]]
-    tags = {
-      "Name"   = "subnet_group"
-    }
-  
+  name       = "${terraform.workspace}-subnet_db"
+  subnet_ids = [var.public[0], var.public[1]]
+  tags = {
+    Name = "${terraform.workspace}-subnet_group"
+  }
+
 }
 
 
 resource "aws_security_group" "mysql_sg" {
-    name        = "mysql_sg"
-    description = "Allow TLS inbound traffic"
-    vpc_id      = var.vpc_id
+  name = "${terraform.workspace}-mysql_sg"
+  description = "Allow TLS inbound traffic"
+  vpc_id      = var.vpc_id
 
-    ingress {
-    description      = "invoming traffic"
-    from_port        = 3306
-    to_port          = 3306
-    protocol         = "tcp"
-    security_groups  = [var.wordpress_sg]
-    cidr_blocks     = ["10.0.0.0/16"]
+  ingress {
+    description     = "incoming traffic"
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
+    security_groups = [var.wordpress_sg]
   }
-  
+
 
   egress {
     from_port        = 0
@@ -51,6 +50,6 @@ resource "aws_security_group" "mysql_sg" {
   }
 
   tags = {
-    "name" = "mysql_sg"
+    Name = "${terraform.workspace}-mysql_sg"
   }
 }

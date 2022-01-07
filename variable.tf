@@ -1,119 +1,34 @@
-variable "cidr_vpc_block" {
-  type        = string
-  description = "vpc cidr block"
+variable "vpc"{
+  type = object({
+    cidr_vpc_block = string
+    public         = list(string)
+    private        =list(string)
+    })
 }
-
-#variable "vpc_id" {
-#   type = string
-#  description =" vpc id"  
-#}
-
-variable "public" {
-  type        = list(any)
-  description = ""
-}
-
-
-variable "private" {
-  type        = list(any)
-  description = ""
-}
-
-
-
-
-
-variable "availability_zone" {
-
-}
-
-
-
-
 #RDS
-
-variable "identifier" {
-
+variable "rds" {
+  type = object({
+    identifier            = string
+    allocated_storage     = number
+    storage_type          =string
+    engine                = string
+    engine_version        = number
+    instance_class        =  string
+    name                  = string
+    username              = string
+    password              = string
+    parameter_group_name  = string
+  })
 }
-
-
-variable "allocated_storage" {
-
-}
-
-
-variable "storage_type" {
-
-}
-
-
-variable "engine" {
-
-}
-
-
-variable "engine_version" {
-
-}
-
-#variable "wordpress_sg" {
-#
-#}
-
-variable "instance_class" {
-
-}
-
-
-variable "name" {
-
-}
-
-
-variable "username" {
-
-}
-
-
-variable "password" {
-
-}
-
-
-
-
-
-
-#variable "vpc_id" {
-#
-#}
-variable "parameter_group_name" {
-    
-}
-
 
 #ec2 variables
-
-variable "ami" {
-  
-}
-
-variable "instance_type" {
-  
-}
-
-variable "key_name" {
-  
-}
-
-variable "name_wp" {
-  
-}
-
-variable "username_wp" {
-  
-}
-
-variable "password_wp" {
-  
+variable "ec2" {
+  type= object({
+    ami           = string 
+    instance_type = string
+    key_name      = string
+    name_wp       = string
+    username_wp   = string 
+    password_wp   = string
+  })  
 }
