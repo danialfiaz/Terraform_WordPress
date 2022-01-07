@@ -4,7 +4,6 @@ vpc = {
     private        = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
 }
 
-
 # rds values
 rds = {
     identifier           = "mysql-database"
